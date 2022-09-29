@@ -1,0 +1,4 @@
+x = input('Введите слово')
+y = len(x)
+x = x[:y // 2].replace('п', '*') + x[y // 2:]
+print(x)
