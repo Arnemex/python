@@ -1,0 +1,26 @@
+const m=3;
+const n=4;
+var i,j: integer;
+    a:array[1..m,1..n] of real;
+    c: real;
+begin
+     for i:=1 to m do
+         for j:=1 to n do
+         begin
+              write('Enter a[',i,'][',j,']: ');
+              readln(a[i,j]);
+         end;
+     for i:=1 to m do
+     begin
+         c:=a[i,n];
+         a[i,n]:= a[i,1];
+         a[i,1]:= c;
+     end;
+ 
+     for i:=1 to m do
+     begin
+         for j:=1 to n do
+             write(a[i,j]:5:1);
+         writeln;
+     end;
+end.
