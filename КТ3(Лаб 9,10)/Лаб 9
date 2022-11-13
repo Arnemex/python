@@ -1,0 +1,19 @@
+a = int(input("Lines"))
+b = int(input("colums"))
+print("\n")
+c =[]
+with open ('Arnem.txt.') as f:
+    for ln in f:
+        d = [int(x) for x in ln.split()]
+        c.append(a)
+c.sort(reverse=True)
+for i in c:
+    i.sort(reverse=True)
+    for j in i:
+        print(j, end = ' ')
+        print ("\n")
+        with open('Arnem.txt','w') as f:
+            for ln in b:
+                for lb in ln:
+                    f.write(str(lb)+" ")
+                    f.write("\n")
