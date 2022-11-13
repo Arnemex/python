@@ -1,0 +1,134 @@
+from tkinter.messagebox import showinfo
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import scrolledtext
+
+
+
+def click():
+    def chislo(digit):
+        value = calc.get()
+        if value[0] == '0' and len(value) == 1:
+            value = value[1:]
+        calc.delete(0, END)
+        calc.insert(0, value + digit)
+
+    def operaciya(operation):
+        value = calc.get()
+        if value[-1] in '-+/*':
+            value = value[:-1]
+        calc.delete(0, END)
+        calc.insert(0, value + operation)
+
+    def result():
+        value = calc.get()
+        if value[-1] in '+-/*':
+            value = value + value[:-1]
+        calc.delete(0, END)
+        calc.insert(0, eval(value))
+
+    def clear():
+        calc.delete(0, END)
+        calc.insert(0, '0')
+
+    def make_digit_button(digit):
+        return Button(window2, text=digit, bd=5, font=('Arial', 13),
+                      command=lambda: chislo(digit))
+
+    def make_operation_button(operation):
+        return Button(window2, text=operation, bd=5, font=('Arial', 13),
+                      command=lambda: operaciya(operation))
+
+    def make_calc_button(operation):
+        return Button(window2, text=operation, bd=5, font=('Arial', 13),
+                      command=result)
+
+    def make_clear_button(operation):
+        return Button(window2, text=operation, bd=5, font=('Arial', 13),
+                      command=clear)
+
+    window2 = Tk()
+    window2.geometry('240x280+100+200')
+    window2.resizable(False, False)
+    window2.title('Calculator')
+    calc = Entry(window2, justify=RIGHT, font=('Arial', 15), width=15)
+    calc.insert(0, '0')
+    calc.grid(column=0, row=0, columnspan=4, stick='wesn', padx=5)
+    make_digit_button('1').grid(row=1, column=0, stick='wesn', padx=5, pady=5)
+    make_digit_button('2').grid(row=1, column=1, stick='wesn', padx=5, pady=5)
+    make_digit_button('3').grid(row=1, column=2, stick='wesn', padx=5, pady=5)
+    make_digit_button('4').grid(row=2, column=0, stick='wesn', padx=5, pady=5)
+    make_digit_button('5').grid(row=2, column=1, stick='wesn', padx=5, pady=5)
+    make_digit_button('6').grid(row=2, column=2, stick='wesn', padx=5, pady=5)
+    make_digit_button('7').grid(row=3, column=0, stick='wesn', padx=5, pady=5)
+    make_digit_button('8').grid(row=3, column=1, stick='wesn', padx=5, pady=5)
+    make_digit_button('9').grid(row=3, column=2, stick='wesn', padx=5, pady=5)
+    make_digit_button('0').grid(row=4, column=0, stick='wesn', padx=5, pady=5)
+    make_operation_button('+').grid(row=1, column=3, stick='wesn', padx=5, pady=5)
+    make_operation_button('-').grid(row=2, column=3, stick='wesn', padx=5, pady=5)
+    make_operation_button('*').grid(row=3, column=3, stick='wesn', padx=5, pady=5)
+    make_operation_button('/').grid(row=4, column=3, stick='wesn', padx=5, pady=5)
+
+    make_calc_button('=').grid(row=4, column=2, stick='wesn', padx=5, pady=5)
+    make_clear_button('C').grid(row=4, column=1, stick='wesn', padx=5, pady=5)
+
+    window2.grid_columnconfigure(0, minsize=60)
+    window2.grid_columnconfigure(1, minsize=60)
+    window2.grid_columnconfigure(2, minsize=60)
+    window2.grid_columnconfigure(3, minsize=60)
+    window2.grid_rowconfigure(1, minsize=60)
+    window2.grid_rowconfigure(2, minsize=60)
+    window2.grid_rowconfigure(3, minsize=60)
+    window2.grid_rowconfigure(4, minsize=60)
+    window2.mainloop()
+
+
+window1 = Tk()
+window1.geometry('1920x1080')
+
+
+def vkladka1():
+    showinfo(title="Информация", message='Вы выбрали первый вариант')
+
+
+def vkladka2():
+    showinfo(title="Информация", message='Вы выбрали второй вариант')
+
+
+def vkladka3():
+    showinfo(title="Информация", message='Вы выбрали третий вариант')
+
+
+button1 = Button(window1, text='Калькулятор', command=click)
+button2 = Button(window1, text='Первый', command=vkladka1)
+button3 = Button(window1, text='Второй', command=vkladka2)
+button4 = Button(window1, text='Третий', command=vkladka3)
+button1.grid(column=0, row=3)
+button2.grid(column=0, row=4)
+button3.grid(column=0, row=5)
+button4.grid(column=0, row=6)
+
+text = scrolledtext.ScrolledText(window1, width=50, height=10, bg="white", fg="black")
+
+
+def clicked2():
+    with open('text.txt', 'r') as file:
+        text.delete(1.0, END)
+        text.insert(1.0, file.read())
+    file.close()
+
+
+def clicked3():
+    with open('text.txt', 'w') as file1:
+        file1.write(text.get(1.0, END))
+    file1.close()
+
+
+text.grid(row=0, column=0, columnspan=2, padx=35)
+btn2 = Button(window1, text="Загузить", command=clicked2)
+btn2.grid(row=1, column=3, pady=10)
+btn3 = Button(window1, text="Сохранить", command=clicked3)
+btn3.grid(row=1, column=4)
+
+window1.mainloop()
