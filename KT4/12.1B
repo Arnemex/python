@@ -1,0 +1,12 @@
+print('Задача 12.1, блок Б')
+
+
+def function():
+    a = int(input())
+    if a == 0:
+        return 0
+    else:
+        return max(a, function())
+
+
+print(function())
